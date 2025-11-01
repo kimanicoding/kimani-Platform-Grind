@@ -1,4 +1,125 @@
-// Game variables
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Robot Escape</title>
+    <style>
+.logo {
+    margin-top: 0px;
+    margin-right: 0px;
+    background-image: url("logo.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 50px 50px; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#gameContainer {
+    position: relative;
+    width: 1000px;
+    height: 700px;
+    border: 2px solid #333;
+    overflow: hidden;
+    background-color: #87CEEB;
+     background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%; 
+    border-radius: 10px;
+}
+
+#gameCanvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.player {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    /* background-color: #FF5722; */
+    /* border-radius: 50%; */
+    z-index: 10;
+    background-image: url("robot.png");
+    background-size: cover;
+}
+
+.platform {
+    position: absolute;
+   background-image: url("platform.jpg");
+    background-size: cover;
+    border-radius: 5px;
+}
+
+.obstacle {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    /* background-color: #ff0000; */
+     background-image: url("barier.png");
+    background-size: cover;
+}
+
+.goal {
+    position: absolute;
+    z-index: 5;
+   background-image: url("gate3.jpg");
+   background-size: cover;
+
+}
+
+
+#score {
+    position: absolute;
+    top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#instructions {
+    position: absolute;
+     bottom: 10px; 
+    left: 10px; 
+    font-size: 20px;
+    color: white;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    border-radius: 10px;
+    text-align: left;
+}
+
+        </style>
+</head>
+<body>
+    <img class="logo">
+    <div id="gameContainer">
+        <div id="gameCanvas"></div>
+        <div id="score">Score: <span id="scoreValue">0</span></div>
+        
+    </div>
+
+<div id="instructions"><strong>Story Line:</strong> The robot has been working his whole life in this chinese metropolis, with no pay or reward at all.
+    <br>
+     He has had his fill of slavery. Help the Robot robot escape the city using your skills to avoid obstacles
+     and reach the goal
+    !<br>
+    <strong>Controls:</strong> Use WASD keys to move. Be idle and your score shall be reduced. Reach the goal to increase your score. Move quickly,
+     you may fall through the platforms!<br>
+Hit an obstacle and you go back to start.</div>
+
+    <script>
+        // Game variables
 const gameCanvas = document.getElementById('gameCanvas');
 const scoreElement = document.getElementById('scoreValue');
 let score = 0;
@@ -8,8 +129,8 @@ let gameRunning = true;
 const player = {
     x: 50,
     y: 300,
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     speed: 5,
     velX: 0,
     velY: 0,
@@ -19,25 +140,28 @@ const player = {
 
 // Game objects
 const platforms = [
-    {x: 0, y: 450, width: 800, height: 50}, // Ground
-    {x: 200, y: 350, width: 100, height: 20},
-    {x: 400, y: 300, width: 100, height: 20},
-    {x: 600, y: 250, width: 100, height: 20},
-    {x: 300, y: 200, width: 100, height: 20}
+    {x: 0, y: 450, width: 100, height: 20}, // Ground
+    {x: 200, y: 350, width: 150, height: 20},
+    {x: 400, y: 300, width: 150, height: 20},
+    {x: 600, y: 250, width: 250, height: 20},
+    {x: 300, y: 200, width: 150, height: 20}, 
+    // {x: 100, y: 450, width: 150, height: 30} 
 ];
 
 const obstacles = [
-    {x: 300, y: 430, width: 30, height: 20},
-    {x: 500, y: 280, width: 30, height: 20},
-    {x: 700, y: 230, width: 30, height: 20}
+    {x: 270, y: 315, width: 50, height: 40},//1st one
+    {x: 470, y: 265, width: 50, height: 40},//Last 1 b4 the platform with gate
+    {x: 660, y: 215, width: 50, height: 40},// Last next 2 the gate
+    {x: 330, y: 165, width: 50, height: 40} // X-treme top
 ];
 
 const goal = {
     x: 750,
-    y: 200,
-    width: 30,
-    height: 50
+    y: 190,
+    width: 60,
+    height: 60
 };
+
 
 // Key state tracking
 const keys = {};
@@ -243,4 +367,7 @@ function render() {
 }
 
 // Start the game
-init();
+init(); 
+    </script>
+</body>
+</html>
